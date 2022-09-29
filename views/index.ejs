@@ -1,9 +1,28 @@
 <% include partials/header.ejs %>
-<!-- <%- include(partials/header); -%> -->
   <% if (title == "Home") { %>
-    <p>Home</p>
+    <div>
+      <p>Projects</p>
+      <table>
+        <tr>
+          <th>Company</th>
+          <th>Contact</th>
+          <th>Country</th>
+        </tr>
+        <tr>
+          <td>Alfreds Futterkiste</td>
+          <td>Maria Anders</td>
+          <td>Germany</td>
+        </tr>
+        <tr>
+          <td>Centro comercial Moctezuma</td>
+          <td>Francisco Chang</td>
+          <td>Mexico</td>
+        </tr>
+      </table>
+    </div>
   <% } else { %>
-    <p>Service Page</p>
+    <div>
+      <p>Services Page</p>
+    </div>
   <% } %>
 <% include partials/footer.ejs %>
-<!-- <%- include(partials/footer); -%> -->

@@ -21,6 +21,7 @@ app.use(express.json()); // express render json
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public"))); // set static folder to public folder
+app.use(express.static(path.join(__dirname, "node_modules"))); // second static folder, contain bootstrap and fontawesome
 
 app.use("/", indexRouter); // root path, any path defined in routes/index.js
 app.use("/users", usersRouter); // users root path, point to any path defined in routes/users.js
