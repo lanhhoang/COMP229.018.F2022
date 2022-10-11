@@ -6,25 +6,27 @@ var cookieParser = require("cookie-parser"); //
 var logger = require("morgan"); // HTTP logger
 
 // import routers
-var indexRouter = require("./routes/index"); //
-var usersRouter = require("./routes/users");
+var indexRouter = require("../routes/index"); //
+var usersRouter = require("../routes/users");
+var inventoryRouter = require("../routes/inventory.router");
 
 // instantiate new express object
 var app = express();
 
 // view engine setup
-app.set("views", path.join(__dirname, "views")); // set the location of views folder
+app.set("views", path.join(__dirname, "../views")); // set the location of views folder
 app.set("view engine", "ejs"); // Set ejs as engine to render view template
 
 app.use(logger("dev")); // use logger to log HTTP request
 app.use(express.json()); // express render json
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public"))); // set static folder to public folder
-app.use(express.static(path.join(__dirname, "node_modules"))); // second static folder, contain bootstrap and fontawesome
+app.use(express.static(path.join(__dirname, "../public"))); // set static folder to public folder
+app.use(express.static(path.join(__dirname, "../node_modules"))); // second static folder, contain bootstrap and fontawesome
 
 app.use("/", indexRouter); // root path, any path defined in routes/index.js
 app.use("/users", usersRouter); // users root path, point to any path defined in routes/users.js
+app.use("/inventory", inventoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

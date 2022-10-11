@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "COMP229.018 Code Example",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node ./server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -11,11 +11,11 @@
     "url": "git+https://github.com/lanhhoang/COMP229.018.F2022.git"
   },
   "keywords": [
-    "COMP229",
-    "MEAN",
-    "Web",
-    "App",
-    "JavaScript"
+    "NodeJS",
+    "Express",
+    "EJS",
+    "MongoDB",
+    "MEAN"
   ],
   "author": "Lanh Hoang",
   "license": "MIT",
@@ -31,6 +31,8 @@
     "ejs": "~2.6.1",
     "express": "^4.16.1",
     "http-errors": "~1.6.3",
+    "jquery": "^3.6.0",
+    "mongoose": "^6.0.8",
     "morgan": "~1.9.1"
   }
 }
