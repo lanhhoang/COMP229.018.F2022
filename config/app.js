@@ -1,47 +1,62 @@
-// import 3rd party modules
-var createError = require("http-errors"); // error handler
-var express = require("express"); // Express
-var path = require("path"); // use relative path in our application; don't need to write absolute path; path will figure out the directory
-var cookieParser = require("cookie-parser"); //
-var logger = require("morgan"); // HTTP logger
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+let compress = require('compression');
+let bodyParser = require('body-parser');
+let methodOverride = require('method-override');
+let session = require('express-session');
+let flash = require('connect-flash');
+let passport = require('passport');
 
-// import routers
-var indexRouter = require("../routes/index"); //
-var usersRouter = require("../routes/users");
-var inventoryRouter = require("../routes/inventory.router");
+var indexRouter = require('../routes/index');
+var usersRouter = require('../routes/users');
+var inventoryRouter = require('../routes/inventory');
 
-// instantiate new express object
 var app = express();
 
-// view engine setup
-app.set("views", path.join(__dirname, "../views")); // set the location of views folder
-app.set("view engine", "ejs"); // Set ejs as engine to render view template
+app.use(session({
+  saveUninitialized: true,
+  resave: true,
+  secret: "sessionSecret"
+}));
 
-app.use(logger("dev")); // use logger to log HTTP request
-app.use(express.json()); // express render json
+
+// view engine setup
+app.set('views', path.join(__dirname, '../views'));
+app.set('view engine', 'ejs');
+
+app.use(logger('dev'));
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "../public"))); // set static folder to public folder
-app.use(express.static(path.join(__dirname, "../node_modules"))); // second static folder, contain bootstrap and fontawesome
+app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../node_modules')));
 
-app.use("/", indexRouter); // root path, any path defined in routes/index.js
-app.use("/users", usersRouter); // users root path, point to any path defined in routes/users.js
-app.use("/inventory", inventoryRouter);
+// Sets up passport
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/inventory', inventoryRouter);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
-// error handler: for other errors
-app.use(function (err, req, res, next) {
+// error handler
+app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error"); // render views/error.js
+  res.render('error');
 });
 
-module.exports = app; // export app instance
+module.exports = app;
